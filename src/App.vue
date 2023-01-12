@@ -6,7 +6,7 @@ import { RouterView } from "vue-router";
   <RouterView />
 </template>
 
-<style scoped lang="less">
+<style lang="less">
 // 全局样式
 * {
   margin: 0;
