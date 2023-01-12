@@ -6,13 +6,8 @@
     <section>
       <!-- 轮播图 -->
       <aside>
-        <div>
-          x:<p>{{ x }}</p>
-          y:<p>{{ y }}</p>
-          x+y: <p>{{ xy }}</p>
-        </div>
-        <!-- 刷新背景图按钮 -->
-        <button @click="update">点我刷数据</button>
+        <!-- 点我刷新轮播图 -->
+        <p>{{ res.data.data }}</p>
       </aside>
     </section>
     <footer>
@@ -25,8 +20,8 @@ import { useRequest } from "@/hooks/request";
 import { ref } from "vue";
 
 
-// 直接请求数据
-const {res} = useRequest("")
+
+const {res} = useRequest("src/assets/swiper.json");
 
 
 

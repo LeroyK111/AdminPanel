@@ -22,10 +22,10 @@ export function useRequest(
   config: ruleConfig = {
     method: "GET",
   }
-) {
+): any {
   const res = reactive({
     data: {},
-    status: 0,
+    status: 200,
   });
 
   axios(url, { ...config }).then(
@@ -33,7 +33,7 @@ export function useRequest(
       res.data = resolve.data;
     },
     (reason) => {
-      res.status = 1;
+      res.status = 0;
     }
   );
 
