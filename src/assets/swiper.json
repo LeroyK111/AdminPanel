@@ -2,30 +2,30 @@
   "data": [
     {
       "id": 1,
-      "title": "",
-      "src": ""
+      "title": "天空城市",
+      "src": "./swiperImg/1.jpg"
     },
     {
       "id": 2,
-      "title": "",
-      "src": ""
+      "title": "樱花树",
+      "src": "./swiperImg/2.jpg"
     },
     {
       "id": 3,
-      "title": "",
-      "src": ""
+      "title": "月神",
+      "src": "./swiperImg/3.jpg"
     },
     {
       "id": 4,
-      "title": "",
-      "src": ""
+      "title": "月雪",
+      "src": "./swiperImg/4.jpg"
     },
     {
       "id": 5,
-      "title": "",
-      "src": ""
+      "title": "初升",
+      "src": "./swiperImg/5.jpg"
     }
   ],
-  "alt": "",
+  "alt": "找不到图片",
   "group": 0
 }

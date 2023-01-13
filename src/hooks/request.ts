@@ -33,6 +33,7 @@ export function useRequest(
       res.data = resolve.data;
     },
     (reason) => {
+      res.data = reason;
       res.status = 0;
     }
   );
