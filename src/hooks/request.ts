@@ -16,13 +16,20 @@ interface ruleConfig {
   proxy?: AxiosProxyConfig | false;
 }
 
+interface ruleRes {
+  res: {
+    status: number;
+    data?: any;
+  };
+}
+
 // 封装一个请求中间件
 export function useRequest(
   url: string,
   config: ruleConfig = {
     method: "GET",
   }
-): any {
+): ruleRes {
   const res = reactive({
     data: {},
     status: 200,

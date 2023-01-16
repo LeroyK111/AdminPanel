@@ -1,29 +1,23 @@
 <template>
   <div>
-    
+    {{ usedt.enNow }}
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, onUnmounted } from '@vue/runtime-dom';
-import {} from "dayjs"
+import { onMounted, onUnmounted} from '@vue/runtime-dom';
+import {useDatetime} from "@/stores/datetime"
 
-
-
-
-
-
-
-
+let eve: any;
+const usedt = useDatetime()
 
 onMounted(() => {
-  console.log("开启定时器");
-  
+  eve = setInterval(() => {
+    usedt.Recapture()
+  }, 1000)
 })
 
 onUnmounted(() => {
-  console.log("关闭定时器");
-
-  
+  clearInterval(eve)
 })
 
 </script>
