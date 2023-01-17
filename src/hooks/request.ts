@@ -1,5 +1,4 @@
 import axios, { type AxiosProxyConfig } from "axios";
-import { reactive } from "vue";
 interface ruleConfig {
   method?: "GET" | "POST" | "PUT" | "DELETE";
   headers?: {
@@ -9,7 +8,7 @@ interface ruleConfig {
   params?: {
     [key: string]: string;
   };
-  data?: { [key: string]: string };
+  data?: { [key: string]: any };
   responseType?: "arraybuffer" | "blob" | "json" | "text";
   proxy?: AxiosProxyConfig | false;
 }
@@ -21,21 +20,13 @@ export function useRequest(
     method: "GET",
   }
 ) {
-  const response = reactive<any>({
-    status: 0,
-    data: {},
-    message: "",
-  });
-  axios(url, { ...config }).then(
-    (result) => {
-      response.status = result.status;
-      response.data = result.data;
+  const response = axios(url, { ...config }).then(
+    (res) => {
+      return { ...res };
     },
     (err) => {
-      response.message = err.message;
-      response.status = -1;
+      return { ...err, status: -1 };
     }
   );
-
   return response;
 }

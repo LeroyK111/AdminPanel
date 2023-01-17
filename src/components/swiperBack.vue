@@ -1,14 +1,10 @@
 <template>
-  <div>
-    {{data}}
-  </div>
+  <div>{{ data }}</div>
 </template>
 <script setup lang="ts">
-// !不要使用vue swiper组件，有bug没有修
-// 直接使用swiperjs库
-
 const { data } = defineProps(["data"])
 
+// swiper/vue明显有bug，不要使用
 
 
 
@@ -21,20 +17,20 @@ const { data } = defineProps(["data"])
   height: 100%;
 
   img {
-      height: 100%;
-    }
+    height: 100%;
   }
-  
-  .swiper-slide {
-    width: auto;
-  }
-  
-  .swiper-free-mode>.swiper-wrapper {
-    -webkit-transition-timing-function: linear;
-    /*之前是ease-out*/
-    -moz-transition-timing-function: linear;
-    -ms-transition-timing-function: linear;
-    -o-transition-timing-function: linear;
-    transition-timing-function: linear;
-  }
+}
+
+.swiper-slide {
+  width: auto;
+}
+
+.swiper-free-mode>.swiper-wrapper {
+  -webkit-transition-timing-function: linear;
+  /*之前是ease-out*/
+  -moz-transition-timing-function: linear;
+  -ms-transition-timing-function: linear;
+  -o-transition-timing-function: linear;
+  transition-timing-function: linear;
+}
 </style>

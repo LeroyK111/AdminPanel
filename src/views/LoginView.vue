@@ -6,7 +6,8 @@
       </el-avatar>
     </header>
     <section>
-      <swiperBack :data="response.data"></swiperBack>
+      <swiperBack v-bind="response" v-if="response.status !== -1"/>
+      <div v-else class="noSwiper"></div>
       <aside @click="handleAside">
         {{ group }}
       </aside>
@@ -40,31 +41,31 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useRequest } from "@/hooks/request";
-import { ref, reactive, watch, toRefs, watchEffect } from "vue";
-import { OfficeBuilding, Operation } from "@element-plus/icons-vue";
-import nowDatetime from "@/components/nowDatetime.vue";
-import swiperBack from "@/components/swiperBack.vue";
+import { useRequest } from "@/hooks/request"
+import { ref, reactive, watch, toRefs, watchEffect } from "vue"
+import { OfficeBuilding, Operation } from "@element-plus/icons-vue"
+import nowDatetime from "@/components/nowDatetime.vue"
+import swiperBack from "@/components/swiperBack.vue"
 
 
 const response = reactive({
-  data: {}
+  data: {},
+  status: 0
 });
-const group = ref(0);
+const group = ref(1)
 
-watchEffect(()=>{
-  const res = useRequest("/swiper.json");
+watchEffect(async ()=>{
+  const res = await useRequest("/swiper.json", { data: { group: group.value } });
   response.data = res.data
+  response.status = res.status
+  group.value = res.data.group
 })
 
 
-const handleAside = () => {
-  group.value++;
-  const newData = useRequest("/swiper.json");
-  response.data = newData.data;
+function handleAside() {
+  group.value++
+  // response.status = -1
 }
-
-
 
 
 const message = reactive<Array<any>>([
@@ -86,15 +87,15 @@ const message = reactive<Array<any>>([
     icon: "Operation",
     message: ["English", "简体中文", "日本語", "繁體中文", "español"],
   },
-]);
+])
 
 const handleMessage = (i: string) => {
   alert(i)
-};
+}
 
 const urlblank = () => {
   window.open("https://github.com/LeroyK111", "_blank");
-};
+}
 
 
 
@@ -121,7 +122,8 @@ const urlblank = () => {
   width: 100vw;
   height: 100vh;
   background: #eee;
-header {
+
+  header {
     position: absolute;
     height: 60px;
     width: 100vw;
@@ -129,55 +131,62 @@ header {
     top: 0;
     left: 0;
     z-index: 20;
-    
-      .el-avatar {
-        position: absolute;
-        height: 80%;
-        top: 0.5vw;
-        right: 1vw;
-        cursor: pointer;
-        }
-        }
-        
-        section {
-          position: absolute;
-          z-index: 10;
-          width: 100%;
-          height: 100%;
-          padding-bottom: 30px;
-        
-          aside {
-            z-index: 20;
-            width: 50px;
-            height: 50px;
-            position: absolute;
-            right: 10vw;
-            bottom: 10vw;
-            background-color: rgba(255, 255, 255, .7);
-            cursor: pointer;
-            border-radius: 10px;
-      }
-    }
-    
-    
-    footer {
+
+    .el-avatar {
       position: absolute;
-      height: 30px;
-      width: 100vw;
-      bottom: 0px;
-      background: rgba(0, 0, 0, 0.6);
-      display: flex;
-      align-items: center;
-      padding-left: 20px;
+      height: 80%;
+      top: 0.5vw;
+      right: 1vw;
+      cursor: pointer;
+    }
+  }
+
+  section {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 30px;
+
+    .noSwiper {
+      background: url("./swiperImg/1.jpg") no-repeat;
+      background-size: 100% 100%;
+      width: 100%;
+      height: 100%;
+    }
+
+    aside {
       z-index: 20;
-    
-      .nowDatetime {
-        color: #dedfe0;
-        font-size: 12px;
-        font-weight: bold;
-        position: absolute;
-        right: 20px;
-      }
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      right: 7vw;
+      bottom: 5vw;
+      background-color: rgba(255, 255, 255, .7);
+      cursor: pointer;
+      border-radius: 10px;
+    }
+  }
+
+
+  footer {
+    position: absolute;
+    height: 30px;
+    width: 100vw;
+    bottom: 0px;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    z-index: 20;
+
+    .nowDatetime {
+      color: #dedfe0;
+      font-size: 12px;
+      font-weight: bold;
+      position: absolute;
+      right: 20px;
+    }
   }
 }
 </style>
