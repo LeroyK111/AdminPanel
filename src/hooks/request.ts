@@ -1,7 +1,5 @@
-import { reactive } from "vue";
-
 import axios, { type AxiosProxyConfig } from "axios";
-
+import { reactive } from "vue";
 interface ruleConfig {
   method?: "GET" | "POST" | "PUT" | "DELETE";
   headers?: {
@@ -16,34 +14,28 @@ interface ruleConfig {
   proxy?: AxiosProxyConfig | false;
 }
 
-interface ruleRes {
-  res: {
-    status: number;
-    data?: any;
-  };
-}
-
 // 封装一个请求中间件
 export function useRequest(
   url: string,
   config: ruleConfig = {
     method: "GET",
   }
-): ruleRes {
-  const res = reactive({
+) {
+  const response = reactive<any>({
+    status: 0,
     data: {},
-    status: 200,
+    message: "",
   });
-
   axios(url, { ...config }).then(
-    (resolve) => {
-      res.data = resolve.data;
+    (result) => {
+      response.status = result.status;
+      response.data = result.data;
     },
-    (reason) => {
-      res.data = reason;
-      res.status = 0;
+    (err) => {
+      response.message = err.message;
+      response.status = -1;
     }
   );
 
-  return { res };
+  return response;
 }

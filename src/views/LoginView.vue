@@ -1,41 +1,32 @@
 <template>
   <div class="login">
     <header>
-      <el-avatar
-        class="el-avatar"
-        :size="45"
-        shape="square"
-        fit="fill"
-        @error="true"
-        @click="urlblank"
-      >
+      <el-avatar class="el-avatar" :size="45" shape="square" fit="fill" @error="true" @click="urlblank">
         <img src="/icon.png" />
       </el-avatar>
     </header>
     <section>
-      <!-- 轮播图 -->
-      <p>{{ res.data }}</p>
-      <aside></aside>
+      <swiperBack :data="response.data"></swiperBack>
+      <aside @click="handleAside">
+        {{ group }}
+      </aside>
     </section>
     <footer>
-      <el-dropdown
-        v-for="(item, index) in message"
-        :key="index"
-        placement="top"
-      >
+      <el-dropdown v-for="(item, index) in message" :key="index" placement="top" trigger="hover">
         <el-button :type="item.type" text size="small">
-          <el-icon v-if="item.icon === 'OfficeBuilding'"
-            ><OfficeBuilding
-          /></el-icon>
-          <el-icon v-else-if="item.icon === 'Operation'"><Operation /></el-icon>
+          <el-icon v-if="item.icon === 'OfficeBuilding'">
+            <OfficeBuilding />
+          </el-icon>
+          <el-icon v-else-if="item.icon === 'Operation'">
+            <Operation />
+          </el-icon>
           <span></span>
           <default>{{ item.title }}</default>
         </el-button>
         <template #dropdown>
           <el-dropdown-menu v-if="item.icon === 'OfficeBuilding'">
-            <el-dropdown-item v-for="(i, idx) in item.message" :key="idx"
-              >{{ i.Language === "中文"? "公司" : "Company" }}: {{ i.Company }}</el-dropdown-item
-            >
+            <el-dropdown-item v-for="(i, idx) in item.message" :key="idx">{{ i.Language === "中文" ? "公司" : "Company" }}:
+              {{ i.Company }}</el-dropdown-item>
           </el-dropdown-menu>
           <el-dropdown-menu v-else-if="item.icon === 'Operation'">
             <el-dropdown-item @click="handleMessage(i)" v-for="(i, idx) in item.message" :key="idx">{{
@@ -50,10 +41,28 @@
 </template>
 <script setup lang="ts">
 import { useRequest } from "@/hooks/request";
-import { ref, reactive } from "vue";
+import { ref, reactive, watch, toRefs, watchEffect } from "vue";
 import { OfficeBuilding, Operation } from "@element-plus/icons-vue";
 import nowDatetime from "@/components/nowDatetime.vue";
+import swiperBack from "@/components/swiperBack.vue";
 
+
+const response = reactive({
+  data: {}
+});
+const group = ref(0);
+
+watchEffect(()=>{
+  const res = useRequest("/swiper.json");
+  response.data = res.data
+})
+
+
+const handleAside = () => {
+  group.value++;
+  const newData = useRequest("/swiper.json");
+  response.data = newData.data;
+}
 
 
 
@@ -79,8 +88,6 @@ const message = reactive<Array<any>>([
   },
 ]);
 
-const { res } = useRequest("src/assets/swiper.json");
-
 const handleMessage = (i: string) => {
   alert(i)
 };
@@ -88,6 +95,11 @@ const handleMessage = (i: string) => {
 const urlblank = () => {
   window.open("https://github.com/LeroyK111", "_blank");
 };
+
+
+
+
+
 
 
 
@@ -123,18 +135,27 @@ header {
         height: 80%;
         top: 0.5vw;
         right: 1vw;
-      }
-    }
-    
-    section {
-      position: absolute;
-      z-index: 10;
-      width: 100%;
-      height: 100%;
-      padding-bottom: 30px;
-    
-      aside {
-        z-index: 20;
+        cursor: pointer;
+        }
+        }
+        
+        section {
+          position: absolute;
+          z-index: 10;
+          width: 100%;
+          height: 100%;
+          padding-bottom: 30px;
+        
+          aside {
+            z-index: 20;
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            right: 10vw;
+            bottom: 10vw;
+            background-color: rgba(255, 255, 255, .7);
+            cursor: pointer;
+            border-radius: 10px;
       }
     }
     

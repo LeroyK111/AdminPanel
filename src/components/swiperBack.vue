@@ -1,20 +1,13 @@
 <template>
-   <swiper
-    slides-per-view="auto"
-  >
-    <swiper-slide>Slide 1</swiper-slide>
-  </swiper>
+  <div>
+    {{data}}
+  </div>
 </template>
 <script setup lang="ts">
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import 'swiper/css/build';
-import { Autoplay, FreeMode } from "swiper"
+// !不要使用vue swiper组件，有bug没有修
+// 直接使用swiperjs库
 
-
-
-
-
-
+const { data } = defineProps(["data"])
 
 
 
@@ -23,6 +16,25 @@ import { Autoplay, FreeMode } from "swiper"
 
 
 </script>
-<style lang="less" scoped>
+<style lang="less">
+.swiper {
+  height: 100%;
 
+  img {
+      height: 100%;
+    }
+  }
+  
+  .swiper-slide {
+    width: auto;
+  }
+  
+  .swiper-free-mode>.swiper-wrapper {
+    -webkit-transition-timing-function: linear;
+    /*之前是ease-out*/
+    -moz-transition-timing-function: linear;
+    -ms-transition-timing-function: linear;
+    -o-transition-timing-function: linear;
+    transition-timing-function: linear;
+  }
 </style>
