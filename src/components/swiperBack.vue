@@ -34,4 +34,3 @@ const { data } = defineProps(["data"])
   transition-timing-function: linear;
 }
 </style>
-
