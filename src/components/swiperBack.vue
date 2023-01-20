@@ -1,36 +1,41 @@
 <template>
-  <div>{{ data }}</div>
+  <swiper class="swiper" v-bind="swiperConfig">
+    <swiper-slide class="swiper-slide" v-for="(item, index) in data.data" :key="index">
+      <img :src="item.src" :alt="data.alt">
+    </swiper-slide>
+  </swiper>
 </template>
 <script setup lang="ts">
+import { Swiper, SwiperSlide } from "swiper/vue"
+import { Autoplay} from "swiper"
+import "swiper/css"
+import { reactive } from "vue";
+
+
 const { data } = defineProps(["data"])
-
-// swiper/vue明显有bug，不要使用
-
+const swiperConfig = reactive<any>({
+  loop: true,
+  modules: [Autoplay],
+  autoplay: {
+    delay: 0,
+    disableOnInteraction: false
+  },
+  speed: 10000,
+  slidesPerView: "auto",
+  loopedSlides: 2
+})
 
 
 
 
 
 </script>
-<style lang="less">
-.swiper {
-  height: 100%;
+<style lang="less" scoped>
+.swiper-slide {
+  width: auto;
 
   img {
     height: 100%;
   }
-}
-
-.swiper-slide {
-  width: auto;
-}
-
-.swiper-free-mode>.swiper-wrapper {
-  -webkit-transition-timing-function: linear;
-  /*之前是ease-out*/
-  -moz-transition-timing-function: linear;
-  -ms-transition-timing-function: linear;
-  -o-transition-timing-function: linear;
-  transition-timing-function: linear;
 }
 </style>

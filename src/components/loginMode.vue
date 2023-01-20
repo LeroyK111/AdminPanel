@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="login">
     登录框
   </div>
 </template>
