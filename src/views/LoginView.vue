@@ -32,7 +32,7 @@
         </el-button>
         <template #dropdown>
           <el-dropdown-menu v-if="item.icon === 'OfficeBuilding'">
-            <el-dropdown-item v-for="(i, idx) in item.message" :key="idx">{{ i.Language === "中文" ? "公司" : "Company" }}:
+            <el-dropdown-item class="dropdown-item" v-for="(i, idx) in item.message" :key="idx">{{ i.Language === "中文" ? "公司" : "Company" }}:
               {{ i.Company }}</el-dropdown-item>
           </el-dropdown-menu>
           <el-dropdown-menu v-else-if="item.icon === 'Operation'">
@@ -153,15 +153,14 @@ const urlblank = () => {
     height: 100%;
     padding-bottom: 30px;
 
-
     .loginMode {
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -60%);
-      width: 300px;
-      height: 500px;
+      transform: translate(-50%, -70%);
       z-index: 15;
+      width: 300px;
+      height: 400px;
     }
 
     .swiperBack {
@@ -495,6 +494,7 @@ const urlblank = () => {
     border-top: rgba(255, 255, 255, .7);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+
 
     .nowDatetime {
       color: #dedfe0;
