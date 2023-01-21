@@ -49,7 +49,7 @@
 </template>
 <script setup lang="ts">
 import { useRequest } from "@/hooks/request"
-import { ref, reactive, watchEffect } from "vue"
+import { ref, reactive, watchEffect, toRefs, onMounted } from "vue"
 import { OfficeBuilding, Operation, RefreshRight } from "@element-plus/icons-vue"
 import nowDatetime from "@/components/nowDatetime.vue"
 import swiperBack from "@/components/swiperBack.vue"
@@ -87,20 +87,25 @@ function handleAside() {
 
 
 
+
 const store = useLanguage()
 
 const handleMessage = (i: string) => {
   store.setLanguage(i);
 }
 
+
+
 const Translate = (i: any)=>{
   useTranslate(i.title, store.oldLanguage, store.Language).then(res=>{
+    i.title = res
     if (['zh', 'jp'].includes(store.Language)){
       footerDefault.value = 1
     } else {
       footerDefault.value = 0
     }
-    i.title = res
+    
+    localStorage.setItem("message", JSON.stringify(message))
   }, (err)=>{
     console.log("Sorry, the switch fails.")
 })
@@ -110,7 +115,23 @@ const Translate = (i: any)=>{
 
 
 
+let objMessage: any;
 
+
+watchEffect(()=>{
+  if (localStorage.getItem("message")) {
+    objMessage = JSON.parse(localStorage.getItem("message") as string)
+
+    if (['zh', 'jp'].includes(store.Language)){
+      footerDefault.value = 1
+    } else {
+      footerDefault.value = 0
+    }
+  } else {
+    const title = ""
+    objMessage = [{title}, {title}]
+  }
+})
 
 
 
@@ -122,10 +143,10 @@ const urlblank = () => {
 }
 
 
-const message = reactive<Array<any>>([
+const message = reactive<Array<{type: string, title: string, icon: string, message: any}>>([
   {
     type: "success",
-    title: "公司",
+    title: objMessage[0].title || "公司",
     icon: "OfficeBuilding",
     message: [
       {
@@ -137,11 +158,14 @@ const message = reactive<Array<any>>([
   },
   {
     type: "success",
-    title: "语言",
+    title: objMessage[1].title || "语言",
     icon: "Operation",
     message: ["English", "简体中文", "日本語", "Русский", "Français", "Español", "عربي"],
   },
 ])
+
+
+
 
 
 
@@ -150,7 +174,6 @@ store.$subscribe(()=>{
     Translate(i)
   })
 })
-
 
 
 

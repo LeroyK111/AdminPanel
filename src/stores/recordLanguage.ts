@@ -23,5 +23,7 @@ export const useLanguage = defineStore(
     };
     return { Language, setLanguage, oldLanguage };
   },
-  { persist: true }
+  {
+    persist: true,
+  }
 );
