@@ -7,7 +7,9 @@
   </div>
 </template>
 <script lang="ts" setup>
-
+import { useLanguage } from "@/stores/recordLanguage"
+import { useTranslate } from "@/hooks/useTranslate"
+import { reactive } from "vue"
 
 
 

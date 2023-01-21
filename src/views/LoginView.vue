@@ -29,7 +29,7 @@
             <Operation />
           </el-icon>
           <span></span>
-          <default>{{ item.title }}</default>
+          <default :class="store.Language == 'zh' ? 'dropdownBut':''">{{ item.title }}</default>
         </el-button>
         <template #dropdown>
           <el-dropdown-menu v-if="item.icon === 'OfficeBuilding'">
@@ -49,12 +49,13 @@
 </template>
 <script setup lang="ts">
 import { useRequest } from "@/hooks/request"
-import { ref, reactive, watchEffect, watch } from "vue"
+import { ref, reactive, watchEffect } from "vue"
 import { OfficeBuilding, Operation, RefreshRight } from "@element-plus/icons-vue"
 import nowDatetime from "@/components/nowDatetime.vue"
 import swiperBack from "@/components/swiperBack.vue"
 import LoginMode from "@/components/loginMode.vue"
 import { useLanguage } from "@/stores/recordLanguage"
+import { useTranslate } from "@/hooks/useTranslate"
 
 
 const response = reactive({
@@ -92,6 +93,17 @@ const handleMessage = (i: string) => {
   store.setLanguage(i);
 }
 
+const Translate = (i: any)=>{
+  useTranslate(i.title, store.oldLanguage, store.Language).then(res=>{
+    i.title = res
+  }, (err)=>{
+    console.log("Sorry, the switch fails.")
+})
+}
+
+
+
+
 
 
 
@@ -108,7 +120,7 @@ const urlblank = () => {
 const message = reactive<Array<any>>([
   {
     type: "success",
-    title: "组 织 信 息",
+    title: "公司",
     icon: "OfficeBuilding",
     message: [
       {
@@ -120,20 +132,19 @@ const message = reactive<Array<any>>([
   },
   {
     type: "success",
-    title: "语 言 选 择",
+    title: "语言",
     icon: "Operation",
-    message: ["English", "简体中文", "日本語", "繁體中文", "Русский", "Français", "Español", "عربي"],
+    message: ["English", "简体中文", "日本語", "Русский", "Français", "Español", "عربي"],
   },
 ])
 
 
 
-
-
-
-
-
-
+store.$subscribe(()=>{
+  message.forEach((i)=>{
+    Translate(i)
+  })
+})
 
 
 
@@ -538,6 +549,10 @@ const message = reactive<Array<any>>([
       font-weight: bold;
       position: absolute;
       right: 20px;
+    }
+
+    .dropdownBut {
+      letter-spacing: .4em
     }
   }
 }

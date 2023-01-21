@@ -3,12 +3,12 @@ import { defineStore } from "pinia";
 
 export const useLanguage = defineStore("useLanguage", () => {
   const Language = ref("zh");
+  const oldLanguage = ref("");
 
   const LanguageObj: { [key: string]: string } = {
-    简体中文: "zh-CN",
+    简体中文: "zh",
     English: "en",
     日本語: "ja",
-    繁體中文: "zh-TW",
     Русский: "ru",
     Français: "fr",
     Español: "es",
@@ -16,9 +16,11 @@ export const useLanguage = defineStore("useLanguage", () => {
   };
 
   const setLanguage = (i: string) => {
+    // 存储旧值
+    oldLanguage.value = Language.value;
     Language.value = LanguageObj[i];
   };
 
 
-  return { Language, setLanguage };
+  return { Language, setLanguage, oldLanguage};
 });
