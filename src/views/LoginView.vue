@@ -29,7 +29,7 @@
             <Operation />
           </el-icon>
           <span></span>
-          <default :class="store.Language == 'zh' ? 'dropdownBut':''">{{ item.title }}</default>
+          <default :class="footerDefault == 1 ? 'dropdownBut':''">{{ item.title }}</default>
         </el-button>
         <template #dropdown>
           <el-dropdown-menu v-if="item.icon === 'OfficeBuilding'">
@@ -73,7 +73,7 @@ watchEffect(async ()=>{
 
 
 
-
+const footerDefault = ref(1)
 
 
 
@@ -95,6 +95,11 @@ const handleMessage = (i: string) => {
 
 const Translate = (i: any)=>{
   useTranslate(i.title, store.oldLanguage, store.Language).then(res=>{
+    if (['zh', 'jp'].includes(store.Language)){
+      footerDefault.value = 1
+    } else {
+      footerDefault.value = 0
+    }
     i.title = res
   }, (err)=>{
     console.log("Sorry, the switch fails.")
