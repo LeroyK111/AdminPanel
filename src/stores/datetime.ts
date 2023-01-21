@@ -7,7 +7,7 @@ import locale_en from "dayjs/locale/en";
 // you know plug-in
 // import isLeapYear from 'dayjs/plugin/isLeapYear';
 
-export const useDatetime = defineStore("datetime", () => {
+export const useDatetime = defineStore("useDatetime", () => {
   let now = reactive<any>(dayjs());
 
   const zhcnNow = computed(() =>

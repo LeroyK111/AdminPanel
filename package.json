@@ -16,6 +16,7 @@
     "element-plus": "^2.2.28",
     "pinia": "^2.0.28",
     "swiper": "^8.4.5",
+    "translate": "^1.4.1",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },

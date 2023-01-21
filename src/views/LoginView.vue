@@ -6,7 +6,8 @@
       </el-avatar>
     </header>
     <section>
-      <LoginMode class="loginMode"></LoginMode>
+      <LoginMode class="loginMode">
+      </LoginMode>
       <swiperBack class="swiperBack" v-bind="response"  v-if="response.status !== -1"/>
       <div v-else class="noSwiper"></div>
       <aside @click="handleAside">
@@ -19,7 +20,7 @@
       </aside>
     </section>
     <footer>
-      <el-dropdown v-for="(item, index) in message" :key="index" placement="top" trigger="hover">
+      <el-dropdown v-for="(item, index) in message" :key="index" placement="top" trigger="click" :max-height="200">
         <el-button :type="item.type" text size="small">
           <el-icon v-if="item.icon === 'OfficeBuilding'">
             <OfficeBuilding />
@@ -48,11 +49,12 @@
 </template>
 <script setup lang="ts">
 import { useRequest } from "@/hooks/request"
-import { ref, reactive, watchEffect } from "vue"
+import { ref, reactive, watchEffect, watch } from "vue"
 import { OfficeBuilding, Operation, RefreshRight } from "@element-plus/icons-vue"
 import nowDatetime from "@/components/nowDatetime.vue"
 import swiperBack from "@/components/swiperBack.vue"
 import LoginMode from "@/components/loginMode.vue"
+import { useLanguage } from "@/stores/recordLanguage"
 
 
 const response = reactive({
@@ -69,8 +71,37 @@ watchEffect(async ()=>{
 })
 
 
+
+
+
+
+
+
+
 function handleAside() {
   group.value++
+}
+
+
+
+
+
+const store = useLanguage()
+
+const handleMessage = (i: string) => {
+  store.setLanguage(i);
+}
+
+
+
+
+
+
+
+
+
+const urlblank = () => {
+  window.open("https://github.com/LeroyK111", "_blank");
 }
 
 
@@ -91,17 +122,22 @@ const message = reactive<Array<any>>([
     type: "success",
     title: "语 言 选 择",
     icon: "Operation",
-    message: ["English", "简体中文", "日本語", "繁體中文", "español"],
+    message: ["English", "简体中文", "日本語", "繁體中文", "Русский", "Français", "Español", "عربي"],
   },
 ])
 
-const handleMessage = (i: string) => {
-  alert(i)
-}
 
-const urlblank = () => {
-  window.open("https://github.com/LeroyK111", "_blank");
-}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
