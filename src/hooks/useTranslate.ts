@@ -9,6 +9,6 @@ export async function useTranslate(
   from: string = "zh",
   to: string = "es"
 ) {
-  const text = await translate(str, {from, to});
+  const text = await translate(str, { from, to });
   return text;
 }

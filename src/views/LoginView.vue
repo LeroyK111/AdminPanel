@@ -56,7 +56,7 @@ import swiperBack from "@/components/swiperBack.vue"
 import LoginMode from "@/components/loginMode.vue"
 import { useLanguage } from "@/stores/recordLanguage"
 import { useTranslate } from "@/hooks/useTranslate"
-
+import { ElMessage  } from 'element-plus'
 
 const response = reactive({
   data: {},
@@ -74,7 +74,7 @@ watchEffect(async ()=>{
 
 
 const footerDefault = ref(1)
-
+const errMessage = ref(0)
 
 
 
@@ -98,16 +98,28 @@ const handleMessage = (i: string) => {
 
 const Translate = (i: any)=>{
   useTranslate(i.title, store.oldLanguage, store.Language).then(res=>{
+    ElMessage.closeAll()
     i.title = res
     if (['zh', 'jp'].includes(store.Language)){
       footerDefault.value = 1
     } else {
       footerDefault.value = 0
     }
-    
     localStorage.setItem("message", JSON.stringify(message))
   }, (err)=>{
-    console.log("Sorry, the switch fails.")
+    if (errMessage.value < 1) {
+    ElMessage({
+      message: "Sorry, Language switching failure.",
+      type: 'error',
+      customClass: "errMessage",
+      grouping: true,
+      duration: 3000,
+      appendTo: document.querySelector("#app") as HTMLElement
+    })
+    errMessage.value++
+  } else {
+    errMessage.value = 0
+  }
 })
 }
 
@@ -202,6 +214,10 @@ store.$subscribe(()=>{
   width: 100vw;
   height: 100vh;
   background: #eee;
+
+
+
+
 
   header {
     position: absolute;
