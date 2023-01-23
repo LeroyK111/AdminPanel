@@ -8,13 +8,13 @@ const router = createRouter({
       path: "/home",
       name: "home",
       component: () => import("../views/HomeView.vue"),
-      // 独立守卫
+      // 独立前置守卫
     },
     {
       path: "/login",
       name: "login",
       component: LoginView,
-      // 独立守卫
+      // 独立前置守卫
     },
     {
       path: "/",
@@ -27,11 +27,5 @@ const router = createRouter({
     },
   ],
 });
-
-
-
-
-
-
 
 export default router;
