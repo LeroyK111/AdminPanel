@@ -48,7 +48,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useRequest } from "@/hooks/request"
+import { useRequest } from "@/hooks/userequest.js"
 import { ref, reactive, watchEffect, toRefs, onMounted } from "vue"
 import { OfficeBuilding, Operation, RefreshRight } from "@element-plus/icons-vue"
 import nowDatetime from "@/components/nowDatetime.vue"
@@ -74,7 +74,7 @@ watchEffect(async ()=>{
 
 
 const footerDefault = ref(1)
-const errMessage = ref(0)
+const errMessage = reactive({flag: 0, message: "Sorry, Language switching failure."})
 
 
 
@@ -107,18 +107,17 @@ const Translate = (i: any)=>{
     }
     localStorage.setItem("message", JSON.stringify(message))
   }, (err)=>{
-    if (errMessage.value < 1) {
+    if (errMessage.flag < 1) {
     ElMessage({
-      message: "Sorry, Language switching failure.",
+      message: errMessage.message,
       type: 'error',
       customClass: "errMessage",
-      grouping: true,
       duration: 3000,
       appendTo: document.querySelector("#app") as HTMLElement
     })
-    errMessage.value++
+    errMessage.flag+=1
   } else {
-    errMessage.value = 0
+    errMessage.flag = 0
   }
 })
 }
@@ -252,6 +251,7 @@ store.$subscribe(()=>{
       z-index: 15;
       width: 300px;
       height: 400px;
+      box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.6);
     }
 
     .swiperBack {

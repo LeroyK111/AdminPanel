@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "axios": "^1.2.2",
+    "bcrypt": "^5.1.0",
+    "crypto-js": "^4.1.1",
     "dayjs": "^1.11.7",
     "element-plus": "^2.2.28",
     "pinia": "^2.0.28",
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
+    "@types/crypto-js": "^4.1.1",
     "@types/node": "^18.11.12",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/eslint-config-prettier": "^7.0.0",

@@ -8,17 +8,30 @@ const router = createRouter({
       path: "/home",
       name: "home",
       component: () => import("../views/HomeView.vue"),
+      // 独立守卫
     },
     {
       path: "/login",
       name: "login",
       component: LoginView,
+      // 独立守卫
     },
     {
       path: "/",
       redirect: "/login",
     },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "NotFound",
+      redirect: {name: "login"}
+    },
   ],
 });
+
+
+
+
+
+
 
 export default router;

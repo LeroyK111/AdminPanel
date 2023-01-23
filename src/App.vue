@@ -37,19 +37,45 @@ li {
   transform: translate(-50%, 0);
   border-radius: 5px;
   font-size: .8em;
+  line-height: 45px;
+}
 
-  animation: errMessage 1.7s linear alternate 2;
 
+.is-message-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, .4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  @keyframes errMessage {
-    0% {
-      opacity: 0;
-      top: -16px;
+  .el-message-box {
+    width: 418px;
+    height: 124px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .el-message-box__header {
+      font-size: 18px;
+      color: #333;
+      font-weight: bold;
+      border-bottom: 1px #ccc;
     }
 
-    100% {
-      opacity: 1;
-      top: 16px
+    .el-message-box__content {
+      font-size: 16px;
+    }
+
+    .el-message-box__btns {
+      display: flex;
+      justify-content: end;
     }
   }
 }

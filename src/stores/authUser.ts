@@ -1,13 +1,18 @@
 import { defineStore } from "pinia";
-import { computed, reactive, ref } from "vue";
-import dayjs from "dayjs";
+import { ref, computed } from "vue";
 
+export const useToken = defineStore("useToken", () => {
+  const token = ref("");
 
-export const useAuthUser = defineStore("useAuthUser", () => {
-  
+  const setToken = (src: string = token.value) => {
+    localStorage.setItem("token", src);
+  };
 
-  
+  const getToken = () => {
+    token.value = localStorage.getItem("token") as string;
+  };
 
+  const isToken = computed(() => (token.value !== "" ? true : false));
 
-  return {}
+  return { token, setToken, getToken, isToken };
 });
