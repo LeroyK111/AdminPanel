@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="login" @keyup.enter="btnLogin">
     <div class="logo">
       {{ labelText.logo }}
     </div>
@@ -68,11 +68,6 @@
         {{ labelText.linkRegister }}<el-icon><DArrowRight /></el-icon>
       </el-link>
     </div>
-    <!-- 加入组件 -->
-    
-
-
-
   </div>
 </template>
 <script lang="ts" setup>
@@ -91,6 +86,7 @@ import { useAuthUser } from "@/hooks/useCrypto"
 import { useToken } from "@/stores/authUser";
 // 编程式路由
 import router from "@/router";
+import { value } from "dom7";
 
 const { setToken, getToken, isToken } = useToken()
 
@@ -128,7 +124,6 @@ const changeCode = () => {
   vcode.value = result.code;
   imgDataURL.value = result.dataURL;
 };
-
 
 
 
@@ -173,11 +168,15 @@ const checkVcode = ()=>{
 
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-const btnLogin = async () => {
+const btnLogin = async (event: Event) => {
+  if (loading.value) {
+    // TODO document why this block is empty
+    return null;
+  }
+  
   loading.value = true;
   // 模仿数据请求
   await wait(2000);
-  loading.value = false;
 
   if (
     username.value === "admin" &&
@@ -185,6 +184,7 @@ const btnLogin = async () => {
     vcode.value === code.value
   ) {
     // 请求验证成功
+    loading.value = false;
     // 保存加密后的token
     const { token } = useAuthUser("admin", "admin")
     setToken(token.value)
@@ -198,9 +198,15 @@ const btnLogin = async () => {
     ElMessageBox.alert(labelText.errMessage, labelText.errTitle, {
       confirmButtonText: "OK",
       showClose: false,
+      callback: ()=>{
+        setTimeout(() => {
+          loading.value = false;
+        }, 500);
+      }
     });
   }
 };
+
 
 const linkRegister = () => {
   console.log("弹出对话框，形成遮盖");
@@ -209,6 +215,31 @@ const linkRegister = () => {
 const linkReset = () => {
   console.log("弹出对话框");
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const Lang = useLanguage();
 
