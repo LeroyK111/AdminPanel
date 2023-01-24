@@ -17,6 +17,7 @@ declare module '@vue/runtime-core' {
     ElInput: typeof import('element-plus/es')['ElInput']
     ElLink: typeof import('element-plus/es')['ElLink']
     LoginMode: typeof import('./src/components/loginMode.vue')['default']
+    LoginOtherForm: typeof import('./src/components/loginOtherForm.vue')['default']
     NowDatetime: typeof import('./src/components/nowDatetime.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

@@ -53,7 +53,7 @@ li {
   justify-content: center;
 
   .el-message-box {
-    width: 418px;
+    width: 370px;
     height: 124px;
     background-color: #fff;
     border-radius: 10px;

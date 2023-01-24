@@ -86,7 +86,6 @@ import { useAuthUser } from "@/hooks/useCrypto"
 import { useToken } from "@/stores/authUser";
 // 编程式路由
 import router from "@/router";
-import { value } from "dom7";
 
 const { setToken, getToken, isToken } = useToken()
 
@@ -208,33 +207,6 @@ const btnLogin = async (event: Event) => {
 };
 
 
-const linkRegister = () => {
-  console.log("弹出对话框，形成遮盖");
-};
-
-const linkReset = () => {
-  console.log("弹出对话框");
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -252,6 +224,32 @@ watchEffect(() => {
     );
   });
 });
+
+
+const loginOtherForm = reactive({})
+
+
+
+
+
+
+
+
+
+
+
+const linkRegister = () => {
+  // 最大宽度380px，高度50%
+  console.log("弹出对话框，形成遮盖");
+};
+
+const linkReset = () => {
+  console.log("弹出对话框, 形成遮盖");
+};
+
+
+
+
 </script>
 <style lang="less" scoped>
 @font-face {
