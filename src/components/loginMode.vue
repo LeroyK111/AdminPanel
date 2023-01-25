@@ -68,6 +68,8 @@
         {{ labelText.linkRegister }}<el-icon><DArrowRight /></el-icon>
       </el-link>
     </div>
+    <!-- session -->
+    <loginOtherForm v-bind="props" @closeDialog="closeShow"/>
   </div>
 </template>
 <script lang="ts" setup>
@@ -86,6 +88,9 @@ import { useAuthUser } from "@/hooks/useCrypto"
 import { useToken } from "@/stores/authUser";
 // 编程式路由
 import router from "@/router";
+// 新组件
+import loginOtherForm from "./loginOtherForm.vue"
+
 
 const { setToken, getToken, isToken } = useToken()
 
@@ -225,28 +230,26 @@ watchEffect(() => {
   });
 });
 
-
-const loginOtherForm = reactive({})
-
-
-
-
-
+// 弹出对话框
+const props = reactive({
+  type: "Reset",
+  switchDialog: false
+})
 
 
-
-
-
+const closeShow = ()=>{
+  props.switchDialog = false;
+}
 
 const linkRegister = () => {
-  // 最大宽度380px，高度50%
-  console.log("弹出对话框，形成遮盖");
+  props.switchDialog = true;
+  props.type = "Register"
 };
 
 const linkReset = () => {
-  console.log("弹出对话框, 形成遮盖");
+  props.switchDialog = true;
+  props.type = "Reset"
 };
-
 
 
 

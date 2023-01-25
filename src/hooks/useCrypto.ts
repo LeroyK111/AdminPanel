@@ -31,11 +31,11 @@ export const useAuthUser = (
     const now = dayjs().unix();
     const message = CryptoJS.AES.decrypt(token, key);
     const old = JSON.parse(message.toString(CryptoJS.enc.Utf8));
-
+        
     // 时间差
-    if (now - old.datatime > 60 * 60 * 24) {
+    if (now - old.datatime > 60 * 60 * 24) {  
       return false;
-    }
+    }  
     return true;
   };
 
