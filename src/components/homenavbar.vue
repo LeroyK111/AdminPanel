@@ -182,6 +182,7 @@ const logout = ()=>{
   display: flex;
   flex-direction: column;
   font-family: 'SmileySans', 'Courier New', Courier, monospace;
+  overflow: hidden;
 
 
   .iconFonts {

@@ -1,0 +1,56 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "天空城市",
+      "src": "./swiperImg/1.jpg"
+    },
+    {
+      "id": 2,
+      "title": "樱花树",
+      "src": "./swiperImg/2.jpg"
+    },
+    {
+      "id": 3,
+      "title": "月神",
+      "src": "./swiperImg/3.jpg"
+    },
+    {
+      "id": 4,
+      "title": "月雪",
+      "src": "./swiperImg/4.jpg"
+    },
+    {
+      "id": 5,
+      "title": "初升",
+      "src": "./swiperImg/5.jpg"
+    },
+    {
+      "id": 6,
+      "title": "『幸せを届ける魔法使い』",
+      "src": "./swiperImg/6.jpg"
+    },
+    {
+      "id": 7,
+      "title": "ひとりの空",
+      "src": "./swiperImg/7.jpg"
+    },
+    {
+      "id": 8,
+      "title": "蒼の夜空",
+      "src": "./swiperImg/8.jpg"
+    },
+    {
+      "id": 9,
+      "title": "无题",
+      "src": "./swiperImg/9.jpg"
+    },
+    {
+      "id": 10,
+      "title": "人类不感谢罗辑",
+      "src": "./swiperImg/10.jpg"
+    }
+  ],
+  "alt": "icon.png",
+  "group": 1
+}

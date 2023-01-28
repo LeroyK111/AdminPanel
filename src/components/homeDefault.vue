@@ -29,7 +29,7 @@
           <p>谢谢。</p>
           <br /><br />LeroyK
           <div class="link" @click="wechatLink">
-            <img src="src/assets/imgs/wechat.jpg" alt="">
+            <img src="@/assets/imgs/wechat.jpg" alt="">
           </div>
         </div>
       </el-main>
@@ -43,7 +43,7 @@ const coffeelink = ()=>{
 }
 
 const wechatLink = ()=>{
-  window.open("src/assets/imgs/wechat.jpg", "__blank")
+  window.open("@/assets/imgs/wechat.jpg", "__blank")
 }
 
 
