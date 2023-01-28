@@ -13,6 +13,8 @@ import { reactive } from "vue";
 
 
 const { data } = defineProps(["data"])
+
+
 const swiperConfig = reactive<any>({
   loop: true,
   modules: [Autoplay],

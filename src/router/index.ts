@@ -2,6 +2,14 @@ import { createRouter, createWebHistory } from "vue-router";
 import LoginView from "../views/LoginView.vue";
 import { useAuthUser } from "@/hooks/useCrypto";
 import { ref } from "vue";
+import HomeView from "@/views/HomeView.vue";
+// 子组件子路由
+import datagraph from "@/components/datagraph.vue"
+import homeDefault from "@/components/homeDefault.vue"
+import gismap from "@/components/gismap.vue"
+import settings from "@/components/settings.vue"
+import functions from "@/components/functions.vue"
+import help from "@/components/help.vue"
 
 const { checkTokenTimeOut } = useAuthUser();
 
@@ -29,7 +37,7 @@ const router = createRouter({
     {
       path: "/home",
       name: "home",
-      component: () => import("../views/HomeView.vue"),
+      component: HomeView,
       beforeEnter: (to, from) => {
         getToken()
         if (token.value && checkTokenTimeOut(token.value)) {
@@ -38,6 +46,34 @@ const router = createRouter({
         removeToken()
         router.push("/login")
       },
+      children: [
+        { path: '', component: homeDefault, name: "default"},
+        {
+          path: "datagraph",
+          component: datagraph,
+          name: "datagraph"
+        },
+        {
+          path: "gismap",
+          component: gismap,
+          name: "gismap"
+        },
+        {
+          path: "settings",
+          component: settings,
+          name: "settings"
+        },
+        {
+          path: "functions",
+          component: functions,
+          name: "functions"
+        },
+        {
+          path: "help",
+          component: help,
+          name: "help"
+        }
+      ]
     },
     {
       path: "/login",

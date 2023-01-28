@@ -21,6 +21,7 @@ export const useLanguage = defineStore(
       oldLanguage.value = Language.value;
       Language.value = LanguageObj[i];
     };
+  
     return { Language, setLanguage, oldLanguage };
   },
   {

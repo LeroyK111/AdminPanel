@@ -1,7 +1,7 @@
 # AdminPanel
 **Write a template randomly and relearn the knowledge of vue.**
 
-[Display address]: 
+[showPage]: 
 
 username & password:  **admin**
 
@@ -11,5 +11,6 @@ username & password:  **admin**
 
 ## Home page show
 
-Remaining work: Route blocking, home page making, other details, etc.
+I won't write the responsive layout of each page.
 
+![image-20230129004727663](README.assets/image-20230129004727663.png)

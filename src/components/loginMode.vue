@@ -255,12 +255,6 @@ const linkReset = () => {
 
 </script>
 <style lang="less" scoped>
-@font-face {
-  font-family: "SmileySans";
-  src: url("src/assets/fonts/SmileySans-Oblique.otf.woff2") format("woff2"),
-    url("src/assets/fonts/SmileySans-Oblique.ttf.woff2") format("woff2");
-}
-
 .login {
   // background-color: rgba(0, 0, 0, .);
   display: flex;
