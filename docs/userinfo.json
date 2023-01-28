@@ -1,6 +1,6 @@
 {
   "userinfo": {
-    "icon": "/icon.png",
+    "icon": "./icon.png",
     "nickname": "LeroyK",
     "authLevel": 10
   }

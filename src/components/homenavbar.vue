@@ -132,7 +132,7 @@ const data = reactive<{[kay: string]: any}>({
   status: 0
 })
 
-const authUrl = "../userinfo.json"
+const authUrl = "/userinfo.json"
 
 const userinfo = async (url: string)=>{
 

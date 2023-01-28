@@ -2,38 +2,43 @@
   <div class="login">
     <header>
       <el-avatar class="el-avatar" :size="45" shape="square" fit="fill" @error="true" @click="urlblank">
-        <img src="/icon.png" />
+        <img src="@/assets/imgs/icon.png" />
       </el-avatar>
     </header>
     <section>
       <LoginMode class="loginMode">
       </LoginMode>
-      <swiperBack class="swiperBack" v-bind="response"  v-if="response.status !== -1"/>
+      <swiperBack class="swiperBack" v-bind="response" v-if="response.status !== -1" />
       <div v-else class="noSwiper"></div>
       <aside @click="handleAside">
         <div class="la-square-jelly-box la-2x">
-        <div>
-          <el-icon :size="40" color=" #73767a" class="refresh"><RefreshRight /></el-icon>
-        </div>
-        <div></div>
-      </div>
-      </aside>
-    </section>
-    <footer>
-      <el-dropdown v-for="(item, index) in message" :key="index" placement="top" trigger="click" :max-height="200">
-        <el-button :type="item.type" text size="small">
-          <el-icon v-if="item.icon === 'OfficeBuilding'">
-            <OfficeBuilding />
-          </el-icon>
-          <el-icon v-else-if="item.icon === 'Operation'">
-            <Operation />
-          </el-icon>
-          <span></span>
-          <default :class="footerDefault == 1 ? 'dropdownBut':''">{{ item.title }}</default>
-        </el-button>
-        <template #dropdown>
-          <el-dropdown-menu v-if="item.icon === 'OfficeBuilding'">
-            <el-dropdown-item class="dropdown-item" v-for="(i, idx) in item.message" :key="idx">{{ i.Language === "中文" ? "公司" : "Company" }}:
+          <div>
+            <el-icon :size="40" color=" #73767a" class="refresh">
+              <RefreshRight />
+            </el-icon>
+            </div>
+            <div></div>
+            </div>
+            </aside>
+            </section>
+            <footer>
+              <el-dropdown v-for="(item, index) in message" :key="index" placement="top" trigger="click" :max-height="200">
+                <el-button :type="item.type" text size="small">
+                  <el-icon v-if="item.icon === 'OfficeBuilding'">
+                    <OfficeBuilding />
+                  </el-icon>
+                  <el-icon v-else-if="item.icon === 'Operation'">
+                    <Operation />
+                  </el-icon>
+                  <span></span>
+                  <default :class="footerDefault == 1 ? 'dropdownBut' : ''">{{ item.title }}</default>
+                </el-button>
+                <template #dropdown>
+                  <el-dropdown-menu v-if="item.icon === 'OfficeBuilding'">
+                    <el-dropdown-item class="dropdown-item" v-for="(i, idx) in item.message" :key="idx">{{
+                      i.Language === "中文" ?
+                      "公司" : "Company"
+                      }}:
               {{ i.Company }}</el-dropdown-item>
           </el-dropdown-menu>
           <el-dropdown-menu v-else-if="item.icon === 'Operation'">
@@ -56,7 +61,8 @@ import swiperBack from "@/components/swiperBack.vue"
 import LoginMode from "@/components/loginMode.vue"
 import { useLanguage } from "@/stores/recordLanguage"
 import { useTranslate } from "@/hooks/useTranslate"
-import { ElMessage  } from 'element-plus'
+import { ElMessage } from 'element-plus'
+
 
 const response = reactive({
   data: {},
@@ -64,8 +70,11 @@ const response = reactive({
 });
 const group = ref(1)
 
-watchEffect(async ()=>{
-  const res = await useRequest("/swiper.json", { data: { group: group.value } });
+
+const swiperUrl = "/swiper.json"
+
+watchEffect(async () => {
+  const res = await useRequest(swiperUrl, { data: { group: group.value } });
   response.data = res.data
   response.status = res.status
   group.value = res.data.group
@@ -74,7 +83,7 @@ watchEffect(async ()=>{
 
 
 const footerDefault = ref(1)
-const errMessage = reactive({flag: 0, message: "Sorry, Language switching failure."})
+const errMessage = reactive({ flag: 0, message: "Sorry, Language switching failure." })
 
 
 
@@ -96,30 +105,30 @@ const handleMessage = (i: string) => {
 
 
 
-const Translate = (i: any)=>{
-  useTranslate(i.title, store.oldLanguage, store.Language).then(res=>{
+const Translate = (i: any) => {
+  useTranslate(i.title, store.oldLanguage, store.Language).then(res => {
     ElMessage.closeAll()
     i.title = res
-    if (['zh', 'jp'].includes(store.Language)){
+    if (['zh', 'jp'].includes(store.Language)) {
       footerDefault.value = 1
     } else {
       footerDefault.value = 0
     }
     localStorage.setItem("message", JSON.stringify(message))
-  }, (err)=>{
+  }, (err) => {
     if (errMessage.flag < 1) {
-    ElMessage({
-      message: errMessage.message,
-      type: 'error',
-      customClass: "errMessage",
-      duration: 3000,
-      appendTo: document.querySelector("#app") as HTMLElement
-    })
-    errMessage.flag+=1
-  } else {
-    errMessage.flag = 0
-  }
-})
+      ElMessage({
+        message: errMessage.message,
+        type: 'error',
+        customClass: "errMessage",
+        duration: 3000,
+        appendTo: document.querySelector("#app") as HTMLElement
+      })
+      errMessage.flag += 1
+    } else {
+      errMessage.flag = 0
+    }
+  })
 }
 
 
@@ -129,18 +138,18 @@ const Translate = (i: any)=>{
 let objMessage: any;
 
 
-watchEffect(()=>{
+watchEffect(() => {
   if (localStorage.getItem("message")) {
     objMessage = JSON.parse(localStorage.getItem("message") as string)
 
-    if (['zh', 'jp'].includes(store.Language)){
+    if (['zh', 'jp'].includes(store.Language)) {
       footerDefault.value = 1
     } else {
       footerDefault.value = 0
     }
   } else {
     const title = ""
-    objMessage = [{title}, {title}]
+    objMessage = [{ title }, { title }]
   }
 })
 
@@ -154,7 +163,7 @@ const urlblank = () => {
 }
 
 
-const message = reactive<Array<{type: string, title: string, icon: string, message: any}>>([
+const message = reactive<Array<{ type: string, title: string, icon: string, message: any }>>([
   {
     type: "success",
     title: objMessage[0].title || "公司",
@@ -180,8 +189,8 @@ const message = reactive<Array<{type: string, title: string, icon: string, messa
 
 
 
-store.$subscribe(()=>{
-  message.forEach((i)=>{
+store.$subscribe(() => {
+  message.forEach((i) => {
     Translate(i)
   })
 })

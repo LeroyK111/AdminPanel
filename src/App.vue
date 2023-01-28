@@ -26,8 +26,8 @@ li {
 @font-face {
   // 全局引入字体
   font-family: "SmileySans";
-  src: url("src/assets/fonts/SmileySans-Oblique.otf.woff2") format("woff2");
-  src: url("src/assets/fonts/SmileySans-Oblique.ttf.woff2") format("woff2");
+  src: url("@/assets/fonts/SmileySans-Oblique.otf.woff2") format("woff2");
+    src: url("@/assets/fonts/SmileySans-Oblique.ttf.woff2") format("woff2");
 }
 
 

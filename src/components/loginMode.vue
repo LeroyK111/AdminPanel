@@ -5,71 +5,57 @@
     </div>
     <div class="model">
       <div class="username">
-        <el-input
-          v-model="username"
-          :placeholder="labelText.username"
-          :minlength="5"
-          validate-event
-          :maxlength="100"
-          autofocus
-          @input="checkUsername"
-        >
-        <template #prefix><el-icon><CircleCloseFilled color="red" v-if="checkStatus.username === -1"/><SuccessFilled v-else-if="checkStatus.username===1" color="#2dcc9f"/>
-          <QuestionFilled v-else/>
-        </el-icon></template>
-      </el-input>
-      </div>
-      <div class="password">
-        <el-input
-          v-model="password"
-          type="password"
-          :minlength="5"
-          :maxlength="100"
-          :placeholder="labelText.password"
-          show-password
-          @input="checkPassword"
-        >
-        <template #prefix>
-          <el-icon>
-            <CircleCloseFilled color="red" v-if="checkStatus.password===-1"/>
-            <SuccessFilled v-else-if="checkStatus.password===1" color="#2dcc9f"/>
-            <QuestionFilled v-else/>
-          </el-icon>
-        </template>
-      </el-input>
-      </div>
-      <div class="vcode">
-        <el-image
-          class="codeImg"
-          :src="imgDataURL"
-          fit="contain"
-          @click="changeCode"
-        />
-        <el-input
-          class="codeInput"
-          v-model="code"
-          :placeholder="labelText.vcode"
-          @input="checkVcode"
-        >
-        <template #prefix><el-icon><CircleCloseFilled color="red" v-if="checkStatus.vcode===-1"/><SuccessFilled  v-else-if="checkStatus.vcode===1" color="#2dcc9f"/><QuestionFilled v-else/></el-icon></template>
-      </el-input>
-      </div>
-    </div>
-    <div class="btnLogin">
-      <el-button type="primary" @click="btnLogin" :loading="loading">
-        {{ labelText.btnLogin }}
-      </el-button>
-    </div>
-    <div class="linkRegister">
-      <el-link @click="linkReset">
-        <el-icon><DArrowLeft /></el-icon>{{ labelText.linkReset }}
-      </el-link>
-      <el-link @click="linkRegister">
-        {{ labelText.linkRegister }}<el-icon><DArrowRight /></el-icon>
+        <el-input v-model="username" :placeholder="labelText.username" :minlength="5" validate-event :maxlength="100" autofocus
+          @input="checkUsername">
+          <template #prefix><el-icon>
+              <CircleCloseFilled color="red" v-if="checkStatus.username === -1" />
+              <SuccessFilled v-else-if="checkStatus.username === 1" color="#2dcc9f" />
+              <QuestionFilled v-else />
+            </el-icon></template>
+        </el-input>
+        </div>
+        <div class="password">
+          <el-input v-model="password" type="password" :minlength="5" :maxlength="100" :placeholder="labelText.password"
+            show-password @input="checkPassword">
+            <template #prefix>
+              <el-icon>
+                <CircleCloseFilled color="red" v-if="checkStatus.password === -1" />
+                <SuccessFilled v-else-if="checkStatus.password === 1" color="#2dcc9f" />
+                <QuestionFilled v-else />
+              </el-icon>
+            </template>
+          </el-input>
+        </div>
+        <div class="vcode">
+          <el-image class="codeImg" :src="imgDataURL" fit="contain" @click="changeCode" />
+          <el-input class="codeInput" v-model="code" :placeholder="labelText.vcode" @input="checkVcode">
+            <template #prefix><el-icon>
+                <CircleCloseFilled color="red" v-if="checkStatus.vcode === -1" />
+                <SuccessFilled v-else-if="checkStatus.vcode === 1" color="#2dcc9f" />
+                <QuestionFilled v-else />
+              </el-icon></template>
+          </el-input>
+        </div>
+        </div>
+        <div class="btnLogin">
+          <el-button type="primary" @click="btnLogin" :loading="loading">
+            {{ labelText.btnLogin }}
+          </el-button>
+        </div>
+        <div class="linkRegister">
+          <el-link @click="linkReset">
+            <el-icon>
+              <DArrowLeft />
+            </el-icon>{{ labelText.linkReset }}
+          </el-link>
+          <el-link @click="linkRegister">
+            {{ labelText.linkRegister }}<el-icon>
+              <DArrowRight />
+            </el-icon>
       </el-link>
     </div>
     <!-- session -->
-    <loginOtherForm v-bind="props" @closeDialog="closeShow"/>
+    <loginOtherForm v-bind="props" @closeDialog="closeShow" />
   </div>
 </template>
 <script lang="ts" setup>
@@ -78,7 +64,7 @@ import { useTranslate } from "@/hooks/useTranslate";
 import { reactive, ref, watchEffect } from "vue";
 // 需要时再用真实请求
 // import { useRequest } from "@/hooks/request";
-import { DArrowRight, DArrowLeft, CircleCloseFilled,SuccessFilled,QuestionFilled } from "@element-plus/icons-vue";
+import { DArrowRight, DArrowLeft, CircleCloseFilled, SuccessFilled, QuestionFilled } from "@element-plus/icons-vue";
 
 // 生成随机验证码，本来应该选择请求后端。
 import verification from "verification-code";
@@ -131,28 +117,28 @@ const changeCode = () => {
 
 
 
-const checkUsername = ()=>{
+const checkUsername = () => {
   const l = username.value.length
-  if (l<5 || l>100){
+  if (l < 5 || l > 100) {
     checkStatus.username = -1
   } else {
     checkStatus.username = 1
   }
 }
 
-const checkPassword = ()=>{
+const checkPassword = () => {
   const l = password.value.length
-  if (l<5 || l>100){
+  if (l < 5 || l > 100) {
     checkStatus.password = -1
-  }else {
+  } else {
     checkStatus.password = 1
   }
 }
 
 
-const checkVcode = ()=>{
+const checkVcode = () => {
   const l = password.value.length
-  if (code.value !== vcode.value){
+  if (code.value !== vcode.value) {
     checkStatus.vcode = -1
   } else {
     checkStatus.vcode = 1
@@ -177,7 +163,7 @@ const btnLogin = async (event: Event) => {
     // TODO document why this block is empty
     return null;
   }
-  
+
   loading.value = true;
   // 模仿数据请求
   await wait(2000);
@@ -192,7 +178,7 @@ const btnLogin = async (event: Event) => {
     // 保存加密后的token
     const { token } = useAuthUser("admin", "admin")
     setToken(token.value)
-    
+
     // 跳转路由拦截页面(必须后端验证)，不记录历史
     router.replace({ path: '/home' })
 
@@ -202,7 +188,7 @@ const btnLogin = async (event: Event) => {
     ElMessageBox.alert(labelText.errMessage, labelText.errTitle, {
       confirmButtonText: "OK",
       showClose: false,
-      callback: ()=>{
+      callback: () => {
         setTimeout(() => {
           loading.value = false;
         }, 500);
@@ -237,7 +223,7 @@ const props = reactive({
 })
 
 
-const closeShow = ()=>{
+const closeShow = () => {
   props.switchDialog = false;
 }
 

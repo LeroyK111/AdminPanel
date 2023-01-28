@@ -3,7 +3,7 @@
     <el-container>
       <el-header>
         <div>
-          <img src="/icon.png" />
+          <img src="@/assets/imgs/icon.png" />
         </div>
       </el-header>
       <el-main>
@@ -58,7 +58,7 @@ const wechatLink = ()=>{
     box-shadow: 2px 2px 2px #ccc;
 
     div {
-      background: url("/homeBg.jpg") no-repeat center/100%;
+      background: url("@/assets/imgs/homeBg.jpg") no-repeat center/100%;
       position: absolute;
       top: 0;
       left: 0;
