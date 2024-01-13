@@ -16,25 +16,13 @@
 import Homenavbar from '@/components/homenavbar.vue';
 import { ref } from 'vue';
 
-
 const asideWidth = ref("60px")
 
 const changeWidth = ()=>{
   asideWidth.value = asideWidth.value === "60px"? "200px": "60px"
 }
 
-
-
-
-
-
 </script>
-
-
-
-
-
-
 
 <style scoped lang="less">
 .common-layout {
