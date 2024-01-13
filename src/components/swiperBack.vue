@@ -11,9 +11,7 @@ import { Autoplay} from "swiper"
 import "swiper/css"
 import { reactive } from "vue";
 
-
 const { data } = defineProps(["data"])
-
 
 const swiperConfig = reactive<any>({
   loop: true,

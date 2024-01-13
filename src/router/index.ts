@@ -51,7 +51,9 @@ const router = createRouter({
         {
           path: "datagraph",
           component: datagraph,
-          name: "datagraph"
+          name: "datagraph",
+          // 使用props=true 可以让组件以props接受到路由传参数
+          // props: true,
         },
         {
           path: "gismap",
